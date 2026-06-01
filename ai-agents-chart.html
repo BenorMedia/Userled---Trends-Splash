@@ -287,4 +287,18 @@
   })();
 </script>
 
+<script>
+  // Send content height to parent so iframe can resize dynamically
+  function sendHeight(){
+    var h = document.documentElement.scrollHeight || document.body.scrollHeight;
+    window.parent.postMessage({ type: 'iframeHeight', height: h }, '*');
+  }
+  // Send on load
+  window.addEventListener('load', sendHeight);
+  // Send on resize
+  window.addEventListener('resize', sendHeight);
+  // Send after animation completes (give extra buffer)
+  setTimeout(sendHeight, 1800);
+</script>
+
 </body></html>
